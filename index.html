@@ -6,7 +6,7 @@
 
 <body>
     <a id="pdfLink" href="javascript:void(0)"> Launch PDF viewer</a>
-    <button id="printButton" value='print'></button>
+    <button id="printButton" value='print'>Print</button>
 </body>
 <script type="text/javascript">
     $(function(){
@@ -18,7 +18,7 @@
         $('#pdfLink').click(function(){
             //window.open('viewer.html?name=sample.pdf','_blank');
            
-            var htmlCotent="<iframe src='https://docs.google.com/viewer?url=https://tripetals.github.io/sample.pdf' width='500px' height='500px'></iframe>";
+            var htmlCotent="<iframe src='https://docs.google.com/viewer?url=https://tripetals.github.io/sample.pdf&output=embed' width='500px' height='500px'></iframe>";
            $('body').append(htmlCotent);
             //window.open('https://docs.google.com/viewer?url=https://tripetals.github.io/sample.pdf','_blank');
         });
