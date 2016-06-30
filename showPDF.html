@@ -8,7 +8,7 @@
 <body>
 
 <button id="printButton" type="button">Print</button>
-<iframe id="pdfDoc" src="https://docs.google.com/viewer?url=https://tripetals.github.io/sample.pdf&embedded=true" style="width:600px; height:500px;"  ></iframe>
+<iframe id="pdfDoc" onclick="window.print();" src="https://docs.google.com/viewer?url=https://tripetals.github.io/sample.pdf&embedded=true" style="width:600px; height:500px;"  ></iframe>
 
 
 
@@ -21,7 +21,7 @@ function printPDF(){
 $(function(){
     $('iframe').append("<button type='button' id='printBtns' style='position:absolute; z-index:100000;' onclick='printPDF()'></button>");
     $('#printButton').click(function(){
-        window.print();
+       $('#pdfDoc').printWithDialog();
     });
     
 });
