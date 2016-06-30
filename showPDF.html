@@ -21,7 +21,7 @@ function printPDF(){
 $(function(){
     $('iframe').append("<button type='button' id='printBtns' style='position:absolute; z-index:100000;' onclick='printPDF()'></button>");
     $('#printButton').click(function(){
-       $('#pdfDoc').printWithDialog();
+       $('#pdfDoc').print();
     });
     
 });
