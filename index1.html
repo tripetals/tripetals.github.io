@@ -1,0 +1,77 @@
+<html>
+<body>
+
+<!-- really dirty! this is just a test drive ;) -->
+
+<!--script type="text/javascript" src="https://raw.github.com/mozilla/pdf.js/gh-pages/build/pdf.js"></script -->
+    <script type="text/javascript" src="build/pdf.js"></script>
+<!--
+    <script type="text/javascript" src="build/pdf.worker.js"></script>
+    <script type="text/javascript" src="compatibility.js"></script>
+    <script type="text/javascript" src="l10n.js"></script>
+-->
+<script type="text/javascript">
+function renderPDF(url, canvasContainer, options) {
+    var options = options || { scale: 1 };
+        
+    function renderPage(page) {
+        
+        // Output to Canvas without consideration of device pixel ratio
+//        var naiveContext = $('#naive')[0].getContext('2d');
+//        naiveContext.font = '16px Palatino';
+//        naiveContext.fillText('Rothko is classified as an abstract expressionist.', 10, 20);
+
+        // Output to Canvas, taking into account devices such as iPhone 4 with Retina Display
+//        var hidefCanvas = $('#hidef')[0];
+//        var hidefContext = hidefCanvas.getContext('2d');
+//
+//        if (window.devicePixelRatio) {
+//            var hidefCanvasWidth = $(hidefCanvas).attr('width');
+//            var hidefCanvasHeight = $(hidefCanvas).attr('height');
+//            var hidefCanvasCssWidth = hidefCanvasWidth;
+//            var hidefCanvasCssHeight = hidefCanvasHeight;
+//
+//            $(hidefCanvas).attr('width', hidefCanvasWidth * window.devicePixelRatio);
+//            $(hidefCanvas).attr('height', hidefCanvasHeight * window.devicePixelRatio);
+//            $(hidefCanvas).css('width', hidefCanvasCssWidth);
+//            $(hidefCanvas).css('height', hidefCanvasCssHeight);
+//            hidefContext.scale(window.devicePixelRatio, window.devicePixelRatio);
+//        }
+
+        
+        
+        
+        
+        var viewport = page.getViewport(options.scale);
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+        
+        canvas.height = viewport.height*window.devicePixelRatio;
+        canvas.width = viewport.width*window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        canvasContainer.appendChild(canvas);
+        
+        page.render(renderContext);
+    }
+    
+    function renderPages(pdfDoc) {
+        for(var num = 1; num <= pdfDoc.numPages; num++)
+            pdfDoc.getPage(num).then(renderPage);
+    }
+    PDFJS.disableWorker = true;
+    PDFJS.getDocument(url).then(renderPages);
+}   
+</script> 
+
+<div id="holder"></div>
+
+<script type="text/javascript">
+renderPDF('sample.pdf', document.getElementById('holder'));
+</script>  
+
+</body>
+</html>
